@@ -1,7 +1,5 @@
 # moniepoint-api
-Here's a structured `README.md` template for your FastAPI project, following an open-source format. This will give contributors or users of your project all the essential information needed to set up and use your API.
 
-```markdown
 # FastAPI Push Payment Request API
 
 This project is a Python-based API built using FastAPI. It interacts with Moniepoint's payment gateway to process payments, handle transactions, and retrieve payment statuses.
