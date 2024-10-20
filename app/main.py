@@ -13,6 +13,7 @@ Contact: adesalawu@icloud.com
 from fastapi import FastAPI, HTTPException
 from app.config import Settings
 from app.models import PaymentRequest
+from app.error_handling import general_exception_handler
 import requests
 
 app = FastAPI()
@@ -42,7 +43,12 @@ def process_payment(payment: PaymentRequest):
         "amount": payment.amount,
         "merchantReference": payment.merchantReference,
         "transactionType": payment.transactionType,
-        "paymentMethod": payment.paymentMethod  # Ensure this is set to 'CARD_PURCHASE'
+        "paymentMethod": payment.paymentMethod,  # Ensure this is set to 'CARD_PURCHASE'
+        # Card-related fields
+        "cardNumber": payment.cardNumber,
+        "cardExpiryMonth": payment.cardExpiryMonth,
+        "cardExpiryYear": payment.cardExpiryYear,
+        "cardCVV": payment.cardCVV
     }
 
     # Make the request to Moniepoint's API to process the payment
@@ -56,3 +62,5 @@ def process_payment(payment: PaymentRequest):
         "message": "Payment request received",
         "transactionStatus": response.json(),  # Process the response as needed
     }
+
+app.add_exception_handler(Exception, general_exception_handler)

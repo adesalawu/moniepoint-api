@@ -10,8 +10,8 @@ Author: Adediran
 Contact: adesalawu@icloud.com
 """
 # app/models.py
+# app/models.py
 from pydantic import BaseModel, Field
-from typing import Optional
 
 class PaymentRequest(BaseModel):
     clientId: str
@@ -19,9 +19,11 @@ class PaymentRequest(BaseModel):
     terminalSerial: str
     amount: int
     merchantReference: str
-    transactionType: str = "PURCHASE"
-    paymentMethod: Optional[str] = "POS"
-    cardNumber: str = Field(..., min_length=13, max_length=19)
-    cardExpiryMonth: str = Field(..., min_length=2, max_length=2)
-    cardExpiryYear: str = Field(..., min_length=2, max_length=2)
-    cardCVV: str = Field(..., min_length=3, max_length=4)
+    transactionType: str = Field("PURCHASE", description="The type of transaction, e.g., 'PURCHASE'")
+    paymentMethod: str = Field("CARD_PURCHASE", description="Preferred method of payment, e.g., 'CARD_PURCHASE'")
+    
+    # Card-related fields
+    cardNumber: str = Field(..., description="Card number for the transaction")
+    cardExpiryMonth: int = Field(..., description="Expiry month of the card")
+    cardExpiryYear: int = Field(..., description="Expiry year of the card")
+    cardCVV: int = Field(..., description="Card CVV for the transaction")
