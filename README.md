@@ -107,12 +107,19 @@ The following endpoints are available in this API:
 - **Request**: 
     ```json
     {
+      "clientId": "your_moniepoint_client_id",
+      "clientSecret": "your_moniepoint_client_secret",
       "terminalSerial": "your_terminal_serial",
       "amount": 1000,
       "merchantReference": "your_unique_reference",
       "transactionType": "PURCHASE",
-      "paymentMethod": "CARD_PURCHASE"
+      "paymentMethod": "CARD_PURCHASE",
+      "cardNumber": "4111111111111111",
+      "cardExpiryMonth": 12,
+      "cardExpiryYear": 2024,
+      "cardCVV": 123
     }
+
     ```
 - **Response**: 
     ```json
@@ -144,15 +151,20 @@ You can test the API using Postman, cURL, or FastAPI's interactive documentation
 
 ### Example cURL Request
 ```bash
-curl -X 'POST' \
-  'http://127.0.0.1:8000/process-payment/' \
-  -H 'Content-Type: application/json' \
-  -d '{
+curl -X POST "http://127.0.0.1:8000/process-payment/" \
+-H "Content-Type: application/json" \
+-d '{
+  "clientId": "your_moniepoint_client_id",
+  "clientSecret": "your_moniepoint_client_secret",
   "terminalSerial": "your_terminal_serial",
   "amount": 1000,
   "merchantReference": "your_unique_reference",
   "transactionType": "PURCHASE",
-  "paymentMethod": "CARD_PURCHASE"
+  "paymentMethod": "CARD_PURCHASE",
+  "cardNumber": "4111111111111111",
+  "cardExpiryMonth": 12,
+  "cardExpiryYear": 2024,
+  "cardCVV": 123
 }'
 ```
 
